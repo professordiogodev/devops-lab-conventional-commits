@@ -2,7 +2,7 @@
 # Checks your hook and scripts. Run with: ./verify.sh
 set -uo pipefail
 cd "$(dirname "$0")"
-ROOT=$(pwd); SB="$ROOT/sandbox/clipstr"
+ROOT=$(pwd); SB="$ROOT/sandbox/clippy"
 [ -d "$SB/.git" ] || { echo "Run ./setup.sh first"; exit 1; }
 pass=0; failn=0
 check() { local d="$1"; shift; if "$@" >/dev/null 2>&1; then echo "PASS  $d"; pass=$((pass+1)); else echo "FAIL  $d"; failn=$((failn+1)); fi; }

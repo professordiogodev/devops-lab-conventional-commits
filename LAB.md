@@ -25,14 +25,14 @@ Fork this repository, clone your fork, and run:
 ./setup.sh
 ```
 
-It creates a Clipstr repository with a realistic history in `sandbox/clipstr` (ignored by Git, it is your playground). The last release is tagged `v1.2.0`; the commits after it are the unreleased work.
+It creates a Clippy repository with a realistic history in `sandbox/clippy` (ignored by Git, it is your playground). The last release is tagged `v1.2.0`; the commits after it are the unreleased work.
 
 ---
 
 ## Part 1 - Recon: read the history
 
 ```bash
-cd sandbox/clipstr
+cd sandbox/clippy
 git log --oneline v1.2.0..HEAD
 git tag -n
 ```
@@ -67,7 +67,7 @@ echo "fixed stuff" > /tmp/m && hooks/commit-msg /tmp/m; echo "exit code: $?"
 Then switch it on in the sandbox repository only:
 
 ```bash
-git -C sandbox/clipstr config core.hooksPath "$PWD/hooks"
+git -C sandbox/clippy config core.hooksPath "$PWD/hooks"
 ```
 
 > **Break it** In the sandbox, try `git commit --allow-empty -m "fixed stuff"`. Read your own error message. Then try `git commit --allow-empty -m "chore: try the hook"` and see it pass. Is the error message good enough for a tired colleague at 18:00? Improve it.
@@ -78,7 +78,7 @@ git -C sandbox/clipstr config core.hooksPath "$PWD/hooks"
 
 ## Part 3 - Release notes without a human: changelog.sh
 
-Write `changelog.sh` (run from the lab repo; it takes an optional path argument and defaults to `sandbox/clipstr`). It must:
+Write `changelog.sh` (run from the lab repo; it takes an optional path argument and defaults to `sandbox/clippy`). It must:
 
 - find the **last tag** by itself (`git describe --tags --abbrev=0`)
 - read the commit subjects since that tag
@@ -103,7 +103,7 @@ Write `next-version.sh` (same path convention). From the last tag and the commit
 
 > **Think** Check your Part 1 prediction. Was it right? Test your script on a throwaway repo with only a `fix:` commit after a tag, then with a `feat:`, then with a footer `BREAKING CHANGE:` in the commit body. The body is not in `%s`: which `git log` format placeholder gives the full message?
 
-When it works, tag a release in the sandbox with the version your script printed: `git -C sandbox/clipstr tag -a v2.0.0 -m "Release 2.0.0"`.
+When it works, tag a release in the sandbox with the version your script printed: `git -C sandbox/clippy tag -a v2.0.0 -m "Release 2.0.0"`.
 
 ---
 

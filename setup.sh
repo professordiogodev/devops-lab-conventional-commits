@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Creates the Clipstr repository with its messy history in ./sandbox/clipstr (safe to re-run: starts over).
+# Creates the Clippy repository with its messy history in ./sandbox/clippy (safe to re-run: starts over).
 set -euo pipefail
 cd "$(dirname "$0")"
-rm -rf sandbox; mkdir -p sandbox/clipstr; cd sandbox/clipstr
-git init -q -b main; git config user.name "Clipstr Team"; git config user.email team@clipstr.dev; git config commit.gpgsign false
+rm -rf sandbox; mkdir -p sandbox/clippy; cd sandbox/clippy
+git init -q -b main; git config user.name "Clippy Team"; git config user.email team@clippy.dev; git config commit.gpgsign false
 n=0
 c() { n=$((n+1)); echo "$n: $1" >> history.txt; git add -A; git commit -q -m "$1"; }
 echo "1.0.0" > VERSION
