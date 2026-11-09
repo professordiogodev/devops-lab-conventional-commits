@@ -1,6 +1,4 @@
-# Conventional Commits: Release Notes From Chaos
-
-Nobody knows what changed since the last release. Enforce commit rules with a hook, generate the changelog from history, and compute the next version automatically.
+<p align="center"><img src="assets/banner.svg" alt="Conventional Commits: Release Notes From Chaos" width="100%"></p>
 
 | | |
 |-|-|
@@ -17,9 +15,10 @@ Nobody knows what changed since the last release. Enforce commit rules with a ho
 5. Commit and push. Open the **Actions** tab of your fork (click *I understand my workflows, go ahead and enable them* the first time). The **Lab check** shows what is still missing.
 6. When the check is green, **submit the URL of your fork** in the course platform.
 
+> [!NOTE]
 > The check only looks at your answers and any files the lab asks you to commit. Your instructor reads your work and may ask you to explain any line.
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## The situation
 
@@ -27,6 +26,7 @@ Monday, stand-up. The product owner asks: *"What exactly changed since the last 
 
 You will fix this for good: commit messages with a **rule**, release notes **generated from history**, and a version number **computed, not argued about**.
 
+> [!IMPORTANT]
 > **Your mission**
 > - Learn the Conventional Commits format by reading real history
 > - Block bad commit messages automatically with a **commit-msg hook**
@@ -36,7 +36,7 @@ You will fix this for good: commit messages with a **rule**, release notes **gen
 
 **Time:** 60-75 min | **Cost:** free | **You need:** Git and bash in your Ubuntu environment
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 0 - Set the scene
 
@@ -48,7 +48,7 @@ Fork this repository, clone your fork, and run:
 
 It creates a Clipstr repository with a realistic history in `sandbox/clipstr` (ignored by Git, it is your playground). The last release is tagged `v1.2.0`; the commits after it are the unreleased work.
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 1 - Recon: read the history
 
@@ -63,9 +63,10 @@ git tag -n
 3. Which one would break existing users of the API? How could you tell from its message?
 4. Read the Conventional Commits rules in the lesson or at `conventionalcommits.org`. In one sentence each: what do `feat`, `fix`, `!` and a `BREAKING CHANGE:` footer mean for the version number?
 
+> [!NOTE]
 > **Predict** If you released today, which version would it be: 1.2.1, 1.3.0 or 2.0.0? Write your prediction. You will check it with your own script later.
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 2 - Build the gatekeeper: a commit-msg hook
 
@@ -91,11 +92,13 @@ Then switch it on in the sandbox repository only:
 git -C sandbox/clipstr config core.hooksPath "$PWD/hooks"
 ```
 
+> [!WARNING]
 > **Break it** In the sandbox, try `git commit --allow-empty -m "fixed stuff"`. Read your own error message. Then try `git commit --allow-empty -m "chore: try the hook"` and see it pass. Is the error message good enough for a tired colleague at 18:00? Improve it.
 
+> [!NOTE]
 > **Think** A hook lives on one machine. How would a whole team get the same hook, and what would still let someone skip it (`--no-verify`)? What would you add on the server side?
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 3 - Release notes without a human: changelog.sh
 
@@ -109,7 +112,7 @@ Write `changelog.sh` (run from the lab repo; it takes an optional path argument 
 
 Run it. Does the output match what you wrote down in Part 1?
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 4 - The version number is a function: next-version.sh
 
@@ -122,11 +125,12 @@ Write `next-version.sh` (same path convention). From the last tag and the commit
 | only `fix` commits | patch |
 | nothing that matters to users (docs, chore) | unchanged |
 
+> [!NOTE]
 > **Think** Check your Part 1 prediction. Was it right? Test your script on a throwaway repo with only a `fix:` commit after a tag, then with a `feat:`, then with a footer `BREAKING CHANGE:` in the commit body. The body is not in `%s`: which `git log` format placeholder gives the full message?
 
 When it works, tag a release in the sandbox with the version your script printed: `git -C sandbox/clipstr tag -a v2.0.0 -m "Release 2.0.0"`.
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 5 - Clean up the history without losing anyone's work
 
@@ -136,9 +140,10 @@ When it works, tag a release in the sandbox with the version your script printed
 2. Use **interactive rebase** (`git rebase -i v1.2.0`) to **reword** the two bad messages so they follow the format. Decide yourself what a good message is by reading each commit's diff (`git show`).
 3. Compare the two branches: `git log --oneline main` against `git log --oneline cleaned`.
 
+> [!WARNING]
 > **Break it** Why would doing this on `main` after others cloned it be a disaster? What does a teammate's `git pull` do when the history was rewritten?
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Part 6 - Prove it
 
@@ -148,7 +153,7 @@ When it works, tag a release in the sandbox with the version your script printed
 
 It runs your hook against valid and invalid messages, your scripts against the seeded history and against throwaway repos, and checks your `cleaned` branch.
 
----
+<p align="center"><img src="assets/divider.svg" alt="" width="100%"></p>
 
 ## Level up (optional)
 
