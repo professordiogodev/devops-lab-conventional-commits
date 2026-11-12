@@ -2,9 +2,20 @@
 
 ## The situation
 
-Monday, stand-up. The product owner asks: *"What exactly changed since the last release? Is it a patch, a minor or a major? Customers are asking."* Nobody can answer. The commit log says `wip`, `fix stuff` and `update`. Someone has to read 200 commits to write the release notes by hand, every release.
+```text
+## Release notes - Clippy, next release
 
-You will fix this for good: commit messages with a **rule**, release notes **generated from history**, and a version number **computed, not argued about**.
+(this is the page the product owner opens on Monday)
+
+ - wip
+ - fix stuff
+ - update
+ - update
+ - asdf
+ - ... 195 more lines like these
+```
+
+*"What exactly changed since the last release? A patch, a minor or a major? Customers are asking."* Nobody can answer, and someone reads 200 commits by hand to write these notes, every release. Start at the end: the notes above are what you have, and what you want is a page that **writes itself**. To get there the history needs a **rule**, the release notes must be **generated from it**, and the version number must be **computed, not argued about**.
 
 > **Your mission**
 > - Learn the Conventional Commits format by reading real history
